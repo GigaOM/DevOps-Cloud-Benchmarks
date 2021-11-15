@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vegeta-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vegeta-operator
+  template:
+    metadata:
+      labels:
+        name: vegeta-operator
+    spec:
+      containers:
+        - name: vegeta-operator
+          image: peterevans/vegeta:latest
+          command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+
