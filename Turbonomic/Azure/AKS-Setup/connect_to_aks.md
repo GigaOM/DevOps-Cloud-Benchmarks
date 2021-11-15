@@ -1,0 +1,1 @@
+az aks get-credentials --name MyManagedCluster --resource-group MyResourceGroup
