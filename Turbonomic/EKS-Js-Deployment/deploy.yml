@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: jsdemo
-        image: thenjdevopsguy/jsappturbo:latest
+        image: thenjdevopsguy/jsturboappnonarm:latest
+        # ARM image --> image: thenjdevopsguy/jsappturbo:latest
         ports:
         - containerPort: 3000
         
