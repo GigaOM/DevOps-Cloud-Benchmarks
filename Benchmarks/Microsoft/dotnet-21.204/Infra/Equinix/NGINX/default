@@ -1,0 +1,47 @@
+#Our web servers
+    upstream web_servers {
+        ip_hash;
+        server 172.16.0.55;
+        server 172.16.0.17;
+        server 172.16.0.87;
+        server 172.16.0.151;
+        }
+ #<span class="short_text" id="result_box" lang="en"><span>Which port to listen</span></span>
+    server {
+        server_name shop.ferosfer.io;
+        location / {
+                #<span class="short_text" id="result_box" lang="en"><span>Proxy</span></span>
+                proxy_pass http://web_servers;
+                #<span class="short_text" id="result_box" lang="en"><span>Installation of the header</span></span>
+                proxy_set_header X-proxy 172.16.0.1;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                #<span class="short_text" id="result_box" lang="en"><span>From this header arrhelper takes ip</span></span>
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                #<span id="result_box" lang="en"><span>Setting errors that nginx will try to access on the next server</span></span>
+                proxy_next_upstream     error timeout invalid_header http_500 http_404;
+                proxy_set_header X-Client-IP $remote_addr;
+                }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/shop.ferosfer.io/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/shop.ferosfer.io/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+    server {
+    if ($host = shop.ferosfer.io) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80;
+        server_name shop.ferosfer.io;
+    return 404; # managed by Certbot
+
+
+}

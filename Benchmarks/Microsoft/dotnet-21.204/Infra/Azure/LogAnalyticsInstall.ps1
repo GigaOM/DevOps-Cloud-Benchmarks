@@ -1,0 +1,1 @@
+choco install microsoft-monitoring-agent --params="'/WorkspaceId:c290388d-cc77-4ffc-8d20-22ba99e231d1 /workspaceKey:a4ZANtkxRMnDgTeWKeCS6uFhq+qsHU1QkoUPoBymMWwMJRgwN/WZ6dTEOttUw1yk4seCqx9zIfaneBE+E+nZyw=='" -y
