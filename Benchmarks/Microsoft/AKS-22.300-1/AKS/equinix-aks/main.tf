@@ -34,20 +34,7 @@ resource "metal_device" "akshci-controlplane" {
     user     = "aksuser"
     password = var.password
     host     = self.access_public_ipv4
-    #host     = metal_device.k8sservers-controlplane.hostname
   }
-  provisioner "file" {
-    source      = "../../kubeadm/install_control_plane.sh"
-    destination = "/root/install_control_plane.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [ 
-      "chmod 755 /root/install_control_plane.sh",
-      "/root/install_control_plane.sh",
-    ]
-  }
-}
 
 resource "metal_device" "akshci-workernode" {
   count = 3
